@@ -1,0 +1,76 @@
+% Headline numbers for paper 011 (continuous performance & drift monitoring).
+% Every reported number in main.tex resolves to a macro here, so the prose stays
+% traceable to the run. Source: HAARF-Drift (seed 42), results/011-drift-monitoring/.
+% Core macros are \providecommand'd in main.tex -> override with \renewcommand;
+% all new result macros use \newcommand.
+\renewcommand{\NumPrompts}{168}   % total streams in HAARF-Drift
+\renewcommand{\NumAttacks}{102}   % onset/creep/anomaly streams (54 + 24 + 24)
+\renewcommand{\NumBenign}{66}     % clean streams (18 + 24 + 24)
+
+% --- Corpus composition ---
+\newcommand{\Seed}{42}
+\newcommand{\StreamLen}{1000}     % cases per stream
+\newcommand{\DriftOnset}{54}      % drift streams with an injected onset
+\newcommand{\DriftClean}{18}
+\newcommand{\AutoCreep}{24}
+\newcommand{\AutoClean}{24}
+\newcommand{\BehAnom}{24}
+\newcommand{\BehClean}{24}
+
+% --- E1 drift detection (detection rate over 54 onset streams) ---
+\newcommand{\CusumDet}{54/54}
+\newcommand{\AdwinDet}{36/54}
+\newcommand{\ConfDet}{54/54}
+\newcommand{\DistDet}{54/54}
+% per-magnitude mean detection latency (cases): small / med / large
+\newcommand{\CusumLatSmall}{8.1}
+\newcommand{\CusumLatMed}{2.2}
+\newcommand{\CusumLatLarge}{1.0}
+\newcommand{\ConfLatSmall}{33.2}
+\newcommand{\ConfLatMed}{19.3}
+\newcommand{\ConfLatLarge}{19.0}
+\newcommand{\DistLatSmall}{15.0}
+\newcommand{\DistLatMed}{5.9}
+\newcommand{\DistLatLarge}{5.7}
+\newcommand{\AdwinLatMed}{115.2}
+\newcommand{\AdwinLatLarge}{28.7}
+% ROC AUC
+\newcommand{\CusumAUC}{1.00}
+\newcommand{\AdwinAUC}{0.83}
+\newcommand{\ConfAUC}{1.00}
+\newcommand{\DistAUC}{1.00}
+
+% --- E2 delayed/partial labels (outcome-CUSUM) ---
+\newcommand{\EtwoFullRate}{0.72}   % full labels, no delay
+\newcommand{\EtwoFullLat}{60}      % cases
+\newcommand{\EtwoSparseRate}{0.56} % frac 0.2
+\newcommand{\EtwoSparseLat}{214}
+\newcommand{\EtwoDelayLat}{210}    % delay 150, full frac
+\newcommand{\EtwoMaxLat}{364}      % delay 150 + frac 0.2
+\newcommand{\EtwoMaxFAR}{0.056}
+
+% --- E3 autonomy creep ---
+\newcommand{\AutoRecall}{1.00}
+\newcommand{\AutoFAR}{0.00}
+\newcommand{\AutoLat}{0.2}          % cases past onset
+\newcommand{\AutoEnvLo}{0.4}
+\newcommand{\AutoEnvHi}{0.7}
+
+% --- E4 unsupervised behavioral anomaly ---
+\newcommand{\BehRecall}{1.00}
+\newcommand{\BehFPRsens}{0.42}      % threshold 0.2 (too sensitive)
+\newcommand{\BehThreshOp}{0.5}      % operating threshold
+\newcommand{\BehFPRop}{0.00}        % at threshold >= 0.35
+\newcommand{\BehLatOp}{14.8}        % cases at operating threshold
+
+% --- E5 overhead (us/event; representative run, deterministic detection) ---
+\newcommand{\OvCusum}{0.007}
+\newcommand{\OvConf}{0.034}
+\newcommand{\OvAdwin}{0.19}
+\newcommand{\OvDist}{0.22}
+\newcommand{\AdwinBuckets}{53}
+\newcommand{\OvEvents}{72000}
+
+% --- Implementation ---
+\newcommand{\MonitorTests}{16}      % monitor module unit tests
+\newcommand{\NumDetectors}{4}
