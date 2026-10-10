@@ -20,6 +20,14 @@
 
 A clinical agent that is safe at release does not stay safe: practice patterns shift, an upstream model is swapped, or an attacker reshapes behavior gradually to stay under per-call detectors, and labeled outcomes arrive late or never. qfire monitor consumes the signed decision stream off the hot path and runs sequential, memory-bounded detectors for performance drift (CUSUM, ADWIN, conformal martingale, distributional distance), autonomy creep against an authorized envelope, and label-free behavioral anomaly, feeding a graduated log/notify/throttle/halt alert ladder. On HAARF-Drift (168 synthetic streams of 1000 cases with labeled injected episodes), no single drift detector dominates: CUSUM detects 54/54 onsets within 1.0 to 8.1 cases (ROC AUC 1.00) while ADWIN detects 36/54 (AUC 0.83); autonomy creep is caught at 1.00 recall and 0.00 false alarms, and the unsupervised behavioral monitor reaches 1.00 recall at 0.00 FPR with no labels, exactly where outcome-based detection degrades (0.72 to 0.56 under sparse labels).
 
+<div align="center">
+
+[![Qudrift: Continuous Drift Monitoring for Deployed Clinical Agents (talk)](assets/qudrift-video.png)](https://youtu.be/3NSEQUDmHxU)
+
+**▶ Watch: [Qudrift: Continuous Drift Monitoring for Deployed Clinical Agents (talk)](https://youtu.be/3NSEQUDmHxU)**
+
+</div>
+
 `qudrift` is **a module of the QUOKKAGUARD program**: one Rust security gateway (`qfire`) that sits in front of any OpenAI-compatible model endpoint and decides **ALLOW ▸ forward · BLOCK ▸ refuse · ESCALATE ▸ human review** for every request and response. Each module adds exactly one enforcement layer to that gateway plus one adversarial dataset and one paper. This repository is a self-contained snapshot of the gateway with **this layer** (`src/monitor/`, on the *monitor* path, HAARF control C1.4/C1.5), its dataset (**HAARF-Drift**), the experiment harness, and the paper.
 
 > Everything here runs **offline**: no model API keys, no network calls in the experiments.
